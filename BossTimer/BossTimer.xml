@@ -1,12 +1,12 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
-    <Frame name="BossTimerMiniMapFrame" parent="MinimapCluster" hidden="false" enableMouse="false" toplevel="true">
+    <Frame name="BossTimerMiniMapFrame" parent="Minimap" hidden="false" enableMouse="false" toplevel="true">
         <Layers>
             <Layer level="ARTWORK">
                 <FontString parentkey="Timer" hidden="false" inherits="GameFontHighlightSmall" text="">
                     <Anchors>
-                        <Anchor point="BOTTOM" relativeTo="MinimapCluster" relativePoint="BOTTOM">
+                        <Anchor point="BOTTOM" relativeTo="Minimap" relativePoint="BOTTOM">
                             <Offset>
-                                <AbsDimension x="10" y="0"/>
+                                <AbsDimension x="0" y="-20"/>
                             </Offset>
                         </Anchor>
                     </Anchors>

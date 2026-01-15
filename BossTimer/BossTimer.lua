@@ -35,7 +35,7 @@ function BossTimer_OnUpdate()
 	end
 end
 
-local function StartTimer()
+function StartTimer()
 	BossTimerMiniMapFrame:Show()
 	start = time()
 end

@@ -1,7 +1,7 @@
 ## Interface:11307
 ## Title: BossTimer
 ## Author: Deathbaron
-## Version: 0.1
+## Version: 0.2
 ## Dependencies: DBM-Core
 ## Notes: Boss Timer addon based on DBM events
 ## SavedVariables: 
