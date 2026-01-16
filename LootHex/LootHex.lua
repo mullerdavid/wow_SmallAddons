@@ -93,27 +93,37 @@ local addon_loaded = false
 
 local function LootHex_PrintState()
 	if LootHex_Profile then
-		if LootHex_Profile.AutoSnipe and LootHex_Profile.AutoLoot then
+		local autoloot = GetCVar("autoLootDefault") == "1"
+		if LootHex_Profile.AutoSnipe and autoloot then
 			print("AutoLoot and AutoSnipe is turned on!")
 		elseif LootHex_Profile.AutoSnipe then
 			print("AutoSnipe is turned on!")
-		elseif LootHex_Profile.AutoLoot then
+		elseif autoloot then
 			print("AutoLoot is turned on!")
 		end
 	end
 end
 
+local function IsModifierDown(mod)
+	if mod == "SHIFT" then return IsShiftKeyDown()
+	elseif mod == "ALT" then return IsAltKeyDown()
+	elseif mod == "CONTROL" then return IsControlKeyDown()
+	end
+	return false
+end
+
 local function LootHex_OnLootReady()
 	local player = UnitName("player")
 	local masterloot = C_PartyInfo.GetLootMethod() == "master"
-	local shiftdown = IsShiftKeyDown()
+	local modifier = IsModifierDown(GetModifiedClick("AUTOLOOTTOGGLE"))
+	local autoloot = GetCVar("autoLootDefault") == "1"
 	local inraid = IsInRaid()
 	for i = GetNumLootItems(),1,-1
 	do
 		if (LootSlotHasItem(i)) 
 		then
 			local iteminfo = GetLootSlotLink(i);
-			if (LootHex_Profile.AutoLoot and not shiftdown)
+			if (autoloot and not modifier)
 			then
 				local itemName, itemLink, itemQuality, itemLevel, _, _, _, itemStackCount = (function() if iteminfo then return GetItemInfo(iteminfo) end end)()
 				local ITEM_QUALITY_LEGENDARY = 5
@@ -204,9 +214,9 @@ local function ProcessCommand(msg)
 	then
 		if (args=="on")
 		then
-			LootHex_Profile.AutoLoot = true
+			SetCVar("autoLootDefault", "1")
 		else
-			LootHex_Profile.AutoLoot = false
+			SetCVar("autoLootDefault", "0")
 		end
 		LootHex_PrintState()
 	elseif cmd == "snipe" or cmd == "autosnipe" 
