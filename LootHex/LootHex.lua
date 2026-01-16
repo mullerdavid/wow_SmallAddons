@@ -123,7 +123,7 @@ local function LootHex_OnLootReady()
 		if (LootSlotHasItem(i)) 
 		then
 			local iteminfo = GetLootSlotLink(i);
-			if (autoloot and not modifier)
+			if (autoloot and not modifier) or (not autoloot and modifier)
 			then
 				local itemName, itemLink, itemQuality, itemLevel, _, _, _, itemStackCount = (function() if iteminfo then return GetItemInfo(iteminfo) end end)()
 				local ITEM_QUALITY_LEGENDARY = 5
