@@ -1,0 +1,8 @@
+## Interface:11306
+## Title: LootHex
+## Author: Deathbaron
+## Version: 0.3
+## Notes: Loot and Inventory helpers
+## SavedVariables: LootHex_Profile
+
+LootHex.lua
