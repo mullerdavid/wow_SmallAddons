@@ -66,7 +66,7 @@ function LootHex_PickLastSoulShard(maxshards)
 	local first = nil
 	local n = 0
 	ClearCursor()
-	for bag=4,0,-1 do 
+	for bag=0,4 do 
 		for slot=C_Container.GetContainerNumSlots(bag),1,-1 do 
 			local id = C_Container.GetContainerItemID(bag,slot)
 			if id==6265 then 
