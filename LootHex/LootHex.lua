@@ -5,7 +5,7 @@ SLASH_LootHex1 = "/lh"
 
 --[[ SAVED VARIABLES ]]--
 
-LootHex_Profile = nil
+LootHex_Profile = LootHex_Profile or nil
 
 --[[ Snipe database ]]--
 
