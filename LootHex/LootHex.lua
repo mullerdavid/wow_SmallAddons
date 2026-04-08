@@ -19,26 +19,31 @@ local vendors = {
     },
     ["Lhara"] = {
 		["_gossip"] = 1,
-        ["Mana Thistle"] = false,
+        ["Mana Thistle"] = true,
         ["Fel Lotus"] = false,
-        ["Netherbloom"] = false,
+        ["Netherbloom"] = true,
         ["Thick Clefthoof Leather"] = false,
         ["Heavy Knothide Leather"] = false,
         ["Black Lotus"] = false,
-        ["Terocone"] = false,
-        ["Nightmare Vine"] = false,
+        ["Terocone"] = true,
+        ["Nightmare Vine"] = true,
     },
     ["Professor Thaddeus Paleo"] = {
 		["_gossip"] = 1,
-        ["Living Ruby"] = false,
-        ["Scroll of Agility V"] = false,
-        ["Scroll of Strength V"] = false,	
-        ["Scroll of Protection V"] = false,
-        ["Mote of Air"] = false,
-        ["Mote of Fire"] = false,
-        ["Mote of Mana"] = false,
-        ["Mote of Life"] = false,
-        ["Mote of Shadow"] = false,
+        ["Living Ruby"] = true,
+        ["Noble Topaz"] = true,
+        ["Dawnstone"] = true,
+        ["Scroll of Agility V"] = true,
+        ["Scroll of Strength V"] = true,	
+        ["Scroll of Protection V"] = true,
+        ["Mote of Air"] = true,
+        ["Mote of Earth"] = true,
+        ["Mote of Fire"] = true,
+        ["Mote of Life"] = true,
+        ["Mote of Mana"] = true,
+        ["Mote of Shadow"] = true,
+        ["Mote of Water"] = true,
+        ["Super Mana Potion"] = false,
     },
     ["Field Repair Bot 110G"] = {
         ["Scroll of Agility V"] = true,
@@ -157,7 +162,8 @@ end
 
 local function LootHex_OnMerchantDialog()
 	if not LootHex_Profile.AutoSnipe then return end
-	if IsShiftKeyDown() then return end
+	local modifier = IsModifierDown(GetModifiedClick("AUTOLOOTTOGGLE"))
+	if modifier then return end
 	
 	local target = UnitName("target")
     if not target then return end 
@@ -172,7 +178,8 @@ end
 
 local function LootHex_OnMerchant()
 	if not LootHex_Profile.AutoSnipe then return end
-	if IsShiftKeyDown() then return end
+	local modifier = IsModifierDown(GetModifiedClick("AUTOLOOTTOGGLE"))
+	if modifier then return end
 	
 	local target = UnitName("target")
     if not target then return end 
