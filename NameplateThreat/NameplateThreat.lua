@@ -8,6 +8,8 @@ local ThreatStatusColors = {
     [3] = {1, 0, 0},
 }
 
+local PetAggroColor = {0, 1, 1}
+
 function CreateThreatIndicator(unitframe)
     local frame = CreateFrame("Frame", nil, unitframe)
     frame:SetSize(35, 13)
@@ -48,7 +50,14 @@ local function UpdateThreatForPlate(self)
     local tanking, status, _, percent = UnitDetailedThreatSituation("player", unit)
     local r, g, b = unpack(ThreatStatusColors[status or 0])
 
-    if tanking then
+    local petTanking, _, _, petPercent
+    if UnitExists("pet") then
+        petTanking, _, _, petPercent = UnitDetailedThreatSituation("pet", unit)
+    end
+
+    if petTanking then
+        r, g, b = unpack(PetAggroColor)
+    elseif tanking then
         percent = UnitThreatPercentageOfLead("player", unit) or 0
     end
 
