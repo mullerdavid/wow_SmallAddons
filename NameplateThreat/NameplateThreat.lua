@@ -96,8 +96,8 @@ local function HookNameplate(frame)
 end
 
 local function IsNameplateFrame(frame)
-    local name = frame:GetName()
-    if not name then return false end
+    local ok, name = pcall(frame.GetName, frame)
+    if not ok or not name then return false end
     return name:match("NamePlate") or (frame.unit and frame.unit:match("^nameplate"))
 end
 
