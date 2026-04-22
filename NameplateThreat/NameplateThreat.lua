@@ -1,5 +1,6 @@
 local ADDON, T = ...
-local L = {}
+
+local Hooks = {}
 
 local ThreatStatusColors = {
     [0] = {0.69, 0.69, 0.69},
@@ -39,31 +40,12 @@ function CreateThreatIndicator(unitframe)
     return frame
 end
 
-
-local function UpdateThreatForPlate(self)
-    local unit = self.unit
-    if not unit or not UnitExists(unit) then
-        if self.ThreatNumber then self.ThreatNumber:Hide() end
-        return
-    end
-
-    local tanking, status, _, percent = UnitDetailedThreatSituation("player", unit)
-    local r, g, b = unpack(ThreatStatusColors[status or 0])
-
-    local petTanking, _, _, petPercent
-    if UnitExists("pet") then
-        petTanking, _, _, petPercent = UnitDetailedThreatSituation("pet", unit)
-    end
-
-    if petTanking then
-        r, g, b = unpack(PetAggroColor)
-    elseif tanking then
-        percent = UnitThreatPercentageOfLead("player", unit) or 0
-    end
-
+local function UpdateThreatForPlate(self, percent, r, g, b)
+	if not self then return end
     if percent and percent > 0 then
         if not self.ThreatNumber then
             local frame = CreateThreatIndicator(self)
+			-- print("CreateThreatIndicator", self.namePlateUnitToken, self:GetName())
             self.ThreatNumber = frame
         end
 
@@ -77,28 +59,50 @@ local function UpdateThreatForPlate(self)
     end
 end
 
-local function OnThreatEvent(self, event, unit)
-    if unit and self.unit == unit then
-        UpdateThreatForPlate(self)
+local function UpdateThreatForUnit(unit)
+	if not unit or not UnitExists(unit) then return end
+	
+    local tanking, status, _, percent = UnitDetailedThreatSituation("player", unit)
+	--print(unit, tanking, status, percent)
+    local r, g, b = unpack(ThreatStatusColors[status or 0])
+
+    local petTanking, _, _, petPercent
+    if UnitExists("pet") then
+        petTanking, _, _, petPercent = UnitDetailedThreatSituation("pet", unit)
     end
+
+    if petTanking then
+        r, g, b = unpack(PetAggroColor)
+    elseif tanking then
+        percent = UnitThreatPercentageOfLead("player", unit) or 0
+    end
+	
+	-- print("UpdateThreatForUnit", unit, percent)
+	
+	local frame = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(unit)
+	UpdateThreatForPlate(frame, percent, r, g, b)
 end
 
 local function HookNameplate(frame)
-    if frame._threatHooked then return end
-    frame._threatHooked = true
-
-    frame:HookScript("OnShow", function(self)
-        UpdateThreatForPlate(self)
-    end)
-
-    frame:RegisterUnitEvent("UNIT_THREAT_LIST_UPDATE", frame.unit or "none")
-    frame:SetScript("OnEvent", OnThreatEvent)
+	-- print("HookNameplate", frame:GetName())
+	local unit = frame.namePlateUnitToken or "none"
+	
+	if not Hooks[unit] then
+		local frame = CreateFrame("Frame")
+		Hooks[unit] = frame
+		frame:RegisterUnitEvent("UNIT_THREAT_LIST_UPDATE", unit)
+		frame:SetScript("OnEvent", function(self, event, unit)
+			UpdateThreatForUnit(unit)
+		end)
+	end
+	
+    UpdateThreatForUnit(unit)
 end
 
 local function IsNameplateFrame(frame)
     local ok, name = pcall(frame.GetName, frame)
     if not ok or not name then return false end
-    return name:match("NamePlate") or (frame.unit and frame.unit:match("^nameplate"))
+    return name:match("^NamePlate") or (frame.namePlateUnitToken and frame.namePlateUnitToken:match("^nameplate"))
 end
 
 local function ScanForNameplates()
@@ -116,9 +120,7 @@ local function OnEvent(self, event, ...)
         local unit = ...
         local frame = C_NamePlate and C_NamePlate.GetNamePlateForUnit and C_NamePlate.GetNamePlateForUnit(unit)
         if frame then
-            frame.unit = unit
             HookNameplate(frame)
-            UpdateThreatForPlate(frame)
         end
     elseif event == "NAME_PLATE_UNIT_REMOVED" then
         local unit = ...
