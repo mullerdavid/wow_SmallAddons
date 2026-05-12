@@ -19,9 +19,10 @@ end
 
 local function TMBImport(self, data, triedToDecompress)
 	local firstLine = data:match("[^\n]+")
+	print()
 
 	-- TMB Tooltip format
-	if (GL:strStartsWith(strtrim(firstLine), 'type,character_name,character_class')) then
+	if (GL:strStartsWith(strtrim(firstLine), 'type,raid_group_name,member_name,character_name')) then
 		
 		local datatable =  {
 			["groups"] = { ["1"] = "Placeholder" },
@@ -49,13 +50,13 @@ local function TMBImport(self, data, triedToDecompress)
 
 					end
 					
-					local characterName = CSVParts[2]:lower()
-					local order = CSVParts[7]
+					local characterName = CSVParts[4]:lower()
+					local order = CSVParts[9]
 					local typ = GL.Data.Constants.tmbTypeWish -- tmbTypePrio
-					local raidGroupID = "1"
-					local itemID = CSVParts[8]
-					local received = CSVParts[10] ~= ""
-					local offspec = CSVParts[9] == "1"
+					local raidGroupID = CSVParts[2] or "1"
+					local itemID = CSVParts[11]
+					local received = CSVParts[14] ~= ""
+					local offspec = CSVParts[12] == "1"
 					
 					if offspec
 					then
