@@ -144,7 +144,7 @@ local function LinkItem(itemLink)
 		local prio = Entry.prio
 		local sortingOrder = prio
 		local stats = GargulDB.stats and GargulDB.stats[Entry.character:lower()]
-		stats = (stats and IsModifierKeyDown()) and string.format("(%d/%d)", stats["received"], stats["wishlists"]+stats["received"]) or ""
+		stats = (stats and IsModifierKeyDown()) and string.format(" (%d/%d)", stats["received"], stats["wishlists"]+stats["received"]) or ""
 		table.insert(WishListEntries, {sortingOrder, string.format("%s[%s]%s", playerName, prio, stats)})
 		itemIsOnSomeonesWishlist = true
 
