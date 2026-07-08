@@ -14,7 +14,7 @@ local PetAggroColor = {0, 1, 1}
 function CreateThreatIndicator(unitframe)
     local frame = CreateFrame("Frame", nil, unitframe)
     frame:SetSize(35, 13)
-    frame:SetPoint("LEFT", unitframe, "RIGHT", -6, -6.5)
+    frame:SetPoint("LEFT", unitframe, "RIGHT", -16.5, -8)
 
     frame.bg = frame:CreateTexture(nil, "BACKGROUND")
     frame.bg:SetTexture("Interface\\TargetingFrame\\UI-StatusBar")
