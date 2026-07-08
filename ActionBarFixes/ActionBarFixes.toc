@@ -1,9 +1,10 @@
 ## Interface:20501
-## Title: MultiActionbarKeyHide
+## Title: ActionBarFixes
 ## Author: Deathbaron
 ## Version: 1.0
 ## Dependencies:
-## Notes: Multi Actionbar Key Hide plugin
+## Notes: ActionBarFixes plugin
 ## SavedVariables: 
 
 MultiActionbarKeyHide.lua
+MacroTextHideOnItems.lua
