@@ -1,7 +1,7 @@
 ## Interface:11307
 ## Title: Gargul Extension
 ## Author: Deathbaron
-## Version: 0.5
+## Version: 0.6
 ## Dependencies: Gargul
 ## Notes: Gargul Extension
 ## SavedVariables: GargulDBExtension

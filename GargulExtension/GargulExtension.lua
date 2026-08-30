@@ -672,6 +672,67 @@ function RollerUI:drawCountdownBar(time, itemLink, itemIcon, note, userCanUseIte
 		end)
 end
 
+function RollerUI:createRollRow()
+    GL:debug("RollerUI:createRollRow")
+end
+
+function RollerUI:fillRollRow()
+    GL:debug("RollerUI:fillRollRow")
+end
+
+function RollerUI:fillGearWidgets()
+    GL:debug("RollerUI:fillGearWidgets")
+end
+
+function RollerUI:drawRollTracker()
+    GL:debug("RollerUI:drawRollTracker")
+end
+
+function RollerUI:positionRollTrackerControls()
+    GL:debug("RollerUI:positionRollTrackerControls")
+end
+
+function RollerUI:refreshRollTracker()
+    GL:debug("RollerUI:refreshRollTracker")
+end
+
+function RollerUI:toggleRollTracker()
+    GL:debug("RollerUI:toggleRollTracker")
+end
+
+function RollerUI:toggleRollTracker()
+    GL:debug("RollerUI:toggleRollTracker")
+end
+
+function RollerUI:scrollRollTracker()
+    GL:debug("RollerUI:scrollRollTracker")
+end
+
+function RollerUI:showRollAcceptedNotification()
+    GL:debug("RollerUI:showRollAcceptedNotification")
+end
+
+function RollerUI:rollOffStopped()
+    GL:debug("RollerUI:rollOffStopped")
+    self:hide();
+end
+
+function RollerUI:markRollOffEnded()
+    GL:debug("RollerUI:markRollOffEnded")
+    self:hide();
+end
+
+function RollerUI:reopen()
+    GL:debug("RollerUI:reopen")
+    self:hide();
+end
+
+
+function RollerUI:closeIfRollOffEnded()
+    GL:debug("RollerUI:closeIfRollOffEnded")
+    self:hide();
+end
+
 function RollerUI:hide()
     GL:debug("RollerUI:hide")
 
