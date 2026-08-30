@@ -1,0 +1,8 @@
+## Interface:11307
+## Title: Gargul Extension UI
+## Author: Deathbaron
+## Version: 0.5
+## Dependencies: Gargul
+## Notes: Gargul Extension, this is the UI part only
+
+GargulExtensionUI.lua
